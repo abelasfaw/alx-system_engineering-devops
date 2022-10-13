@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#bash script
 n=10
 for ((i=1; i<=n;i++));
 do
