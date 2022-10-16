@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#lists file in current directory
+filenames=$(ls)
+for file in $filenames;
+do
+	echo "$file"
+done
