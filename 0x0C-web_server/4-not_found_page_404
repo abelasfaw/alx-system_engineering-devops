@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # configures Nginx server to redirect to youtube on /redirect_me
+# custom 404 page that contains the string Ceci n'est pas une page.
 
 apt-get update
 apt-get install -y nginx
@@ -13,8 +14,13 @@ printf %s "server {
 	index  index.html index.htm;
 
 	location /redirect_me {
-		return 301 http://cuberule.com/;
+		return 301 http://youtube.com/;
 	}
+	error_page 404 /404.html;
+	location /404 {
+	  root /etc/nginx/html;
+	  internal;
+  	}
 }" > /etc/nginx/sites-available/default
 
 service nginx start
