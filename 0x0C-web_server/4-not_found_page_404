@@ -6,7 +6,10 @@ apt-get update
 apt-get install -y nginx
 
 touch /etc/nginx/html/index.html
-echo "Hello World" > /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
+touch /etc/nginx/html/404.html
+echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
+
 printf %s "server {
 	listen 80;
 	listen [::]:80 default_server;
