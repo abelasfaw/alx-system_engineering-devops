@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 # isntall and configures HAProxy
 
-apt-get install -y software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.6
-apt-get update
-apt-get install -y haproxy=2.6.\*
+sudo apt-get update
+sudo apt-get install haproxy -y
 
-cp -a /etc/haproxy/haproxy.cfg{,.orig}
-touch /etc/haproxy/haproxy.cfg
-printf %s "frontend haproxy-1
+config_details="
+frontend haproxy-1
     bind *:80
     mode http
     default_backend server_group1
@@ -17,5 +14,7 @@ backend server_group1
     balance roundrobin
     server 47932-web-01 54.167.86.129:80 check
     server 47932-web-02 18.234.80.6:80   check
-" >> /etc/haproxy/haproxy.cfg
-systemctl restart haproxy
+"
+sudo chown -R "$USER":"$USER" /etc/haproxy/
+echo "$config_details" >> /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
