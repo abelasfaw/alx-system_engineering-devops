@@ -8,7 +8,7 @@ def top_ten(subreddit):
     headers = {'User-Agent': '0x16-api_advanced'}
     params = {'limit': 10}
     res = requests.get(api, headers=headers, allow_redirects=False,
-                            params=params)
+                       params=params)
     if res.status_code == 200:
         res_data = res.json().get('data')
         for child in res_data.get('children'):
