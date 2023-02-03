@@ -5,12 +5,19 @@ import requests
 
 
 def count_words(subreddit, word_list, instances={}, after="", count=0):
+    """Prints counts of given words in hot posts of subreddit"""
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {"User-Agent": "0x16-api_advanced"}
     params = {"after": after, "count": count, "limit": 100}
     response = requests.get(url, headers=headers, params=params,
                             allow_redirects=False)
-    results = response.json().get('data')
+    try:
+        results = response.json()
+        if response.status_code == 404:
+            raise Exception
+    except Exception:
+        return
+    results = results.get('data')
     after = results.get("after")
     count += results.get("dist")
     for child in results.get("children"):
